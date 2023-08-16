@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3amplibookstorage14815202",
+  "bucketName": "amplibook-storage-14815202",
+  "policyUUID": "2cb17142",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
