@@ -6,65 +6,54 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Button,
-  Flex,
-  Grid,
-  TextAreaField,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Post } from "../models";
+import { ProfileImage } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function PostUpdateForm(props) {
+export default function ProfileImageUpdateForm(props) {
   const {
     id: idProp,
-    post: postModelProp,
+    profileImage: profileImageModelProp,
     onSuccess,
     onError,
     onSubmit,
-    onCancel,
     onValidate,
     onChange,
     overrides,
     ...rest
   } = props;
   const initialValues = {
-    title: "",
-    description: "",
     userID: "",
+    image: "",
   };
-  const [title, setTitle] = React.useState(initialValues.title);
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
   const [userID, setUserID] = React.useState(initialValues.userID);
+  const [image, setImage] = React.useState(initialValues.image);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = postRecord
-      ? { ...initialValues, ...postRecord }
+    const cleanValues = profileImageRecord
+      ? { ...initialValues, ...profileImageRecord }
       : initialValues;
-    setTitle(cleanValues.title);
-    setDescription(cleanValues.description);
     setUserID(cleanValues.userID);
+    setImage(cleanValues.image);
     setErrors({});
   };
-  const [postRecord, setPostRecord] = React.useState(postModelProp);
+  const [profileImageRecord, setProfileImageRecord] = React.useState(
+    profileImageModelProp
+  );
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Post, idProp)
-        : postModelProp;
-      setPostRecord(record);
+        ? await DataStore.query(ProfileImage, idProp)
+        : profileImageModelProp;
+      setProfileImageRecord(record);
     };
     queryData();
-  }, [idProp, postModelProp]);
-  React.useEffect(resetStateValues, [postRecord]);
+  }, [idProp, profileImageModelProp]);
+  React.useEffect(resetStateValues, [profileImageRecord]);
   const validations = {
-    title: [{ type: "Required" }],
-    description: [{ type: "Required" }],
     userID: [{ type: "Required" }],
+    image: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -92,9 +81,8 @@ export default function PostUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title,
-          description,
           userID,
+          image,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -125,7 +113,7 @@ export default function PostUpdateForm(props) {
             }
           });
           await DataStore.save(
-            Post.copyOf(postRecord, (updated) => {
+            ProfileImage.copyOf(profileImageRecord, (updated) => {
               Object.assign(updated, modelFields);
             })
           );
@@ -138,61 +126,9 @@ export default function PostUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "PostUpdateForm")}
+      {...getOverrideProps(overrides, "ProfileImageUpdateForm")}
       {...rest}
     >
-      <TextField
-        label="Title"
-        isRequired={true}
-        isReadOnly={false}
-        value={title}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title: value,
-              description,
-              userID,
-            };
-            const result = onChange(modelFields);
-            value = result?.title ?? value;
-          }
-          if (errors.title?.hasError) {
-            runValidationTasks("title", value);
-          }
-          setTitle(value);
-        }}
-        onBlur={() => runValidationTasks("title", title)}
-        errorMessage={errors.title?.errorMessage}
-        hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
-      ></TextField>
-      <TextAreaField
-        label="Description"
-        isRequired={true}
-        isReadOnly={false}
-        value={description}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              description: value,
-              userID,
-            };
-            const result = onChange(modelFields);
-            value = result?.description ?? value;
-          }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
-          }
-          setDescription(value);
-        }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
-      ></TextAreaField>
       <TextField
         label="User id"
         isRequired={true}
@@ -202,9 +138,8 @@ export default function PostUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title,
-              description,
               userID: value,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.userID ?? value;
@@ -219,6 +154,31 @@ export default function PostUpdateForm(props) {
         hasError={errors.userID?.hasError}
         {...getOverrideProps(overrides, "userID")}
       ></TextField>
+      <TextField
+        label="Image"
+        isRequired={true}
+        isReadOnly={false}
+        value={image}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userID,
+              image: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.image ?? value;
+          }
+          if (errors.image?.hasError) {
+            runValidationTasks("image", value);
+          }
+          setImage(value);
+        }}
+        onBlur={() => runValidationTasks("image", image)}
+        errorMessage={errors.image?.errorMessage}
+        hasError={errors.image?.hasError}
+        {...getOverrideProps(overrides, "image")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -230,7 +190,7 @@ export default function PostUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || postModelProp)}
+          isDisabled={!(idProp || profileImageModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -238,19 +198,11 @@ export default function PostUpdateForm(props) {
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
           <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
-          <Button
             children="Submit"
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || postModelProp) ||
+              !(idProp || profileImageModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

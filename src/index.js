@@ -8,12 +8,17 @@ import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import "@aws-amplify/ui-react/styles.css";
 import studioTheme from './ui-components/studioTheme';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@fontsource/inter';
+
 Amplify.configure(awsconfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ThemeProvider theme={studioTheme}>
-        <App />
+        <Authenticator.Provider>
+         <App />
+        </Authenticator.Provider>
     </ThemeProvider>
 );
 

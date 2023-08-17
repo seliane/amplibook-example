@@ -6,51 +6,34 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  TextAreaField,
-  TextField,
-} from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Post } from "../models";
-import { fetchByPath, validateField } from "./utils";
+import { Button, Divider, Flex, Grid, Heading } from "@aws-amplify/ui-react";
+import { StorageManager } from "@aws-amplify/ui-react-storage";
+import { Field, getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { ProfileImage } from "../models";
+import { fetchByPath, processFile, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function PostCreateForm(props) {
+export default function MyProfileImageUpdateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
-    onCancel,
     onValidate,
     onChange,
     overrides,
     ...rest
   } = props;
   const initialValues = {
-    title: "",
-    description: "",
-    userID: "",
+    imageKey: undefined,
   };
-  const [title, setTitle] = React.useState(initialValues.title);
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
-  const [userID, setUserID] = React.useState(initialValues.userID);
+  const [imageKey, setImageKey] = React.useState(initialValues.imageKey);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setTitle(initialValues.title);
-    setDescription(initialValues.description);
-    setUserID(initialValues.userID);
+    setImageKey(initialValues.imageKey);
     setErrors({});
   };
   const validations = {
-    title: [{ type: "Required" }],
-    description: [{ type: "Required" }],
-    userID: [],
+    imageKey: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -78,9 +61,7 @@ export default function PostCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title,
-          description,
-          userID,
+          imageKey,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -110,7 +91,8 @@ export default function PostCreateForm(props) {
               modelFields[key] = null;
             }
           });
-          await DataStore.save(new Post(modelFields));
+          const modelFieldsToSave = {};
+          await DataStore.save(new ProfileImage(modelFieldsToSave));
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -123,90 +105,58 @@ export default function PostCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "PostCreateForm")}
+      {...getOverrideProps(overrides, "MyProfileImageUpdateForm")}
       {...rest}
     >
-      <TextField
-        label="Title"
-        isRequired={true}
-        isReadOnly={false}
-        value={title}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title: value,
-              description,
-              userID,
-            };
-            const result = onChange(modelFields);
-            value = result?.title ?? value;
-          }
-          if (errors.title?.hasError) {
-            runValidationTasks("title", value);
-          }
-          setTitle(value);
-        }}
-        onBlur={() => runValidationTasks("title", title)}
-        errorMessage={errors.title?.errorMessage}
-        hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
-      ></TextField>
-      <TextAreaField
-        label="Description"
-        isRequired={true}
-        isReadOnly={false}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              description: value,
-              userID,
-            };
-            const result = onChange(modelFields);
-            value = result?.description ?? value;
-          }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
-          }
-          setDescription(value);
-        }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
-      ></TextAreaField>
-      <TextField
-        label="User id"
-        isRequired={false}
-        isReadOnly={false}
-        value={userID}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              description,
-              userID: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.userID ?? value;
-          }
-          if (errors.userID?.hasError) {
-            runValidationTasks("userID", value);
-          }
-          setUserID(value);
-        }}
-        onBlur={() => runValidationTasks("userID", userID)}
-        errorMessage={errors.userID?.errorMessage}
-        hasError={errors.userID?.hasError}
-        {...getOverrideProps(overrides, "userID")}
-      ></TextField>
       <Divider
         orientation="horizontal"
         {...getOverrideProps(overrides, "SectionalElement0")}
       ></Divider>
+      <Heading
+        children="Edit Profile Picture"
+        {...getOverrideProps(overrides, "SectionalElement1")}
+      ></Heading>
+      <Field
+        errorMessage={errors.imageKey?.errorMessage}
+        hasError={errors.imageKey?.hasError}
+        label={"Upload new Image"}
+      >
+        <StorageManager
+          onUploadSuccess={({ key }) => {
+            setImageKey((prev) => {
+              let value = key;
+              if (onChange) {
+                const modelFields = {
+                  imageKey: value,
+                };
+                const result = onChange(modelFields);
+                value = result?.imageKey ?? value;
+              }
+              return value;
+            });
+          }}
+          onFileRemove={({ key }) => {
+            setImageKey((prev) => {
+              let value = initialValues?.imageKey;
+              if (onChange) {
+                const modelFields = {
+                  imageKey: value,
+                };
+                const result = onChange(modelFields);
+                value = result?.imageKey ?? value;
+              }
+              return value;
+            });
+          }}
+          processFile={processFile}
+          accessLevel={"public"}
+          acceptedFileTypes={["image/*"]}
+          isResumable={false}
+          showThumbnails={true}
+          maxFileCount={1}
+          {...getOverrideProps(overrides, "imageKey")}
+        ></StorageManager>
+      </Field>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -225,15 +175,7 @@ export default function PostCreateForm(props) {
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
           <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
-          <Button
-            children="Submit"
+            children="Upload"
             type="submit"
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}

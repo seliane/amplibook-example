@@ -6,64 +6,55 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Button,
-  Flex,
-  Grid,
-  TextAreaField,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Post } from "../models";
+import { User } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function PostUpdateForm(props) {
+export default function UserUpdateForm(props) {
   const {
     id: idProp,
-    post: postModelProp,
+    user: userModelProp,
     onSuccess,
     onError,
     onSubmit,
-    onCancel,
     onValidate,
     onChange,
     overrides,
     ...rest
   } = props;
   const initialValues = {
-    title: "",
-    description: "",
+    name: "",
+    email: "",
     userID: "",
   };
-  const [title, setTitle] = React.useState(initialValues.title);
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
+  const [name, setName] = React.useState(initialValues.name);
+  const [email, setEmail] = React.useState(initialValues.email);
   const [userID, setUserID] = React.useState(initialValues.userID);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = postRecord
-      ? { ...initialValues, ...postRecord }
+    const cleanValues = userRecord
+      ? { ...initialValues, ...userRecord }
       : initialValues;
-    setTitle(cleanValues.title);
-    setDescription(cleanValues.description);
+    setName(cleanValues.name);
+    setEmail(cleanValues.email);
     setUserID(cleanValues.userID);
     setErrors({});
   };
-  const [postRecord, setPostRecord] = React.useState(postModelProp);
+  const [userRecord, setUserRecord] = React.useState(userModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Post, idProp)
-        : postModelProp;
-      setPostRecord(record);
+        ? await DataStore.query(User, idProp)
+        : userModelProp;
+      setUserRecord(record);
     };
     queryData();
-  }, [idProp, postModelProp]);
-  React.useEffect(resetStateValues, [postRecord]);
+  }, [idProp, userModelProp]);
+  React.useEffect(resetStateValues, [userRecord]);
   const validations = {
-    title: [{ type: "Required" }],
-    description: [{ type: "Required" }],
+    name: [{ type: "Required" }],
+    email: [{ type: "Required" }, { type: "Email" }],
     userID: [{ type: "Required" }],
   };
   const runValidationTasks = async (
@@ -92,8 +83,8 @@ export default function PostUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title,
-          description,
+          name,
+          email,
           userID,
         };
         const validationResponses = await Promise.all(
@@ -125,7 +116,7 @@ export default function PostUpdateForm(props) {
             }
           });
           await DataStore.save(
-            Post.copyOf(postRecord, (updated) => {
+            User.copyOf(userRecord, (updated) => {
               Object.assign(updated, modelFields);
             })
           );
@@ -138,61 +129,61 @@ export default function PostUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "PostUpdateForm")}
+      {...getOverrideProps(overrides, "UserUpdateForm")}
       {...rest}
     >
       <TextField
-        label="Title"
+        label="Name"
         isRequired={true}
         isReadOnly={false}
-        value={title}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title: value,
-              description,
+              name: value,
+              email,
               userID,
             };
             const result = onChange(modelFields);
-            value = result?.title ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.title?.hasError) {
-            runValidationTasks("title", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
-          setTitle(value);
+          setName(value);
         }}
-        onBlur={() => runValidationTasks("title", title)}
-        errorMessage={errors.title?.errorMessage}
-        hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
-      <TextAreaField
-        label="Description"
+      <TextField
+        label="Email"
         isRequired={true}
         isReadOnly={false}
-        value={description}
+        value={email}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title,
-              description: value,
+              name,
+              email: value,
               userID,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.email ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.email?.hasError) {
+            runValidationTasks("email", value);
           }
-          setDescription(value);
+          setEmail(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
-      ></TextAreaField>
+        onBlur={() => runValidationTasks("email", email)}
+        errorMessage={errors.email?.errorMessage}
+        hasError={errors.email?.hasError}
+        {...getOverrideProps(overrides, "email")}
+      ></TextField>
       <TextField
         label="User id"
         isRequired={true}
@@ -202,8 +193,8 @@ export default function PostUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title,
-              description,
+              name,
+              email,
               userID: value,
             };
             const result = onChange(modelFields);
@@ -230,7 +221,7 @@ export default function PostUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || postModelProp)}
+          isDisabled={!(idProp || userModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -238,19 +229,11 @@ export default function PostUpdateForm(props) {
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
           <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
-          <Button
             children="Submit"
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || postModelProp) ||
+              !(idProp || userModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

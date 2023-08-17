@@ -1,5 +1,20 @@
+type ProfileImage @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID!
+  image: ID!
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  email: AWSEmail!
+  userID: ID!
+}
+
 type Post @model @auth(rules: [{allow: public}]) {
   id: ID!
-  title: String
-  description: String
+  title: String!
+  description: String!
+  userID: ID!
 }
+ 

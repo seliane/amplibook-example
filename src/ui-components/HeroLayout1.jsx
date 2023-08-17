@@ -10,10 +10,17 @@ import {
   getOverrideProps,
   getOverridesFromVariants,
   mergeVariantsAndOverrides,
+  useNavigateAction,
 } from "@aws-amplify/ui-react/internal";
-import { Button, Flex, Image, Text } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Image,
+  Text,
+  useBreakpointValue,
+} from "@aws-amplify/ui-react";
 export default function HeroLayout1(props) {
-  const { overrides: overridesProp, ...rest } = props;
+  const { overrides: overridesProp, ...restProp } = props;
   const variants = [
     {
       overrides: {
@@ -28,7 +35,27 @@ export default function HeroLayout1(props) {
         Right: {},
         HeroLayout1: {},
       },
-      variantValues: { mode: "Light" },
+      variantValues: { mode: "Light", breakpoint: "large" },
+    },
+    {
+      overrides: {
+        Eyebrow: {},
+        Heading: {},
+        Body: {},
+        Message: {},
+        Button: {},
+        HeroMessage: {},
+        Left: { shrink: "0", padding: "60px 60px 60px 60px" },
+        image: {},
+        Right: {},
+        HeroLayout1: {
+          gap: "3px",
+          direction: "column",
+          width: "674px",
+          height: "918px",
+        },
+      },
+      variantValues: { mode: "Light", breakpoint: "lmedium" },
     },
     {
       overrides: {
@@ -38,24 +65,38 @@ export default function HeroLayout1(props) {
         Message: {},
         Button: {},
         HeroMessage: {},
-        Left: { backgroundColor: "rgba(13,26,38,1)" },
-        image: { width: "unset", alignSelf: "stretch" },
-        Right: {},
-        HeroLayout1: {},
+        Left: {
+          width: "720px",
+          shrink: "0",
+          backgroundColor: "rgba(13,26,38,1)",
+        },
+        image: {},
+        Right: { width: "720px", shrink: "0" },
+        HeroLayout1: { height: "unset" },
       },
-      variantValues: { mode: "Dark" },
+      variantValues: { mode: "Dark", breakpoint: "medium" },
     },
   ];
+  const breakpointHook = useBreakpointValue({
+    base: "medium",
+    medium: "medium",
+    large: "large",
+  });
+  const rest = { style: { transition: "all 0.25s" }, ...restProp };
   const overrides = mergeVariantsAndOverrides(
-    getOverridesFromVariants(variants, props),
+    getOverridesFromVariants(variants, {
+      breakpoint: breakpointHook,
+      ...props,
+    }),
     overridesProp || {}
   );
+  const buttonOnClick = useNavigateAction({ type: "url", url: "/posts" });
   return (
     <Flex
       gap="0"
       direction="row"
       width="1440px"
-      height="unset"
+      height="546px"
       justifyContent="center"
       alignItems="center"
       position="relative"
@@ -67,12 +108,14 @@ export default function HeroLayout1(props) {
       <Flex
         gap="10px"
         direction="column"
-        width="720px"
+        width="unset"
         height="unset"
         justifyContent="center"
         alignItems="center"
         overflow="hidden"
-        shrink="0"
+        grow="1"
+        shrink="1"
+        basis="0"
         alignSelf="stretch"
         position="relative"
         padding="120px 120px 120px 120px"
@@ -184,6 +227,9 @@ export default function HeroLayout1(props) {
             isDisabled={false}
             variation="primary"
             children="Get started"
+            onClick={() => {
+              buttonOnClick();
+            }}
             {...getOverrideProps(overrides, "Button")}
           ></Button>
         </Flex>
@@ -191,12 +237,14 @@ export default function HeroLayout1(props) {
       <Flex
         gap="10px"
         direction="column"
-        width="720px"
+        width="unset"
         height="unset"
         justifyContent="center"
         alignItems="center"
         overflow="hidden"
-        shrink="0"
+        grow="1"
+        shrink="1"
+        basis="0"
         alignSelf="stretch"
         position="relative"
         padding="0px 0px 0px 0px"
@@ -204,7 +252,7 @@ export default function HeroLayout1(props) {
         {...getOverrideProps(overrides, "Right")}
       >
         <Image
-          width="720px"
+          width="unset"
           height="unset"
           display="block"
           gap="unset"
@@ -213,6 +261,7 @@ export default function HeroLayout1(props) {
           grow="1"
           shrink="1"
           basis="0"
+          alignSelf="stretch"
           position="relative"
           padding="0px 0px 0px 0px"
           objectFit="unset"
