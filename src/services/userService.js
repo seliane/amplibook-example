@@ -2,7 +2,7 @@ import {getImagePublic} from "./imageService";
 import {Auth, DataStore} from "aws-amplify";
 import {useEffect, useState} from "react";
 import {defaultAvatarIconKey, getProfileImageKey} from "./profileImageService";
-import { User} from "../models";
+import {User} from "../models";
 
 async function updateUser(userID, name) {
     const dataList = await DataStore.query(User, el =>
@@ -41,14 +41,14 @@ export async function addUser() {
     try {
         const user = await Auth.currentAuthenticatedUser();
 
-        const userList = await DataStore.query(User);
+        const userList = await getUser(user.attributes.sub);
 
         if (userList.length === 0) {
             await DataStore.save(
                 new User({
                     "name": user.attributes.name,
-                    "email":  user.attributes.email,
-                    "userID":  user.attributes.sub,
+                    "email": user.attributes.email,
+                    "userID": user.attributes.sub,
                 })
             );
         }

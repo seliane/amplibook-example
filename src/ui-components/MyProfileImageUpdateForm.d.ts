@@ -5,36 +5,39 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, HeadingProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { StorageManagerProps } from "@aws-amplify/ui-react-storage";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import {GridProps, HeadingProps, TextFieldProps} from "@aws-amplify/ui-react";
+import {StorageManagerProps} from "@aws-amplify/ui-react-storage";
+import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
+import {ProfileImage} from "../models";
+
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type MyProfileImageUpdateFormInputValues = {
-    imageKey?: string;
-    image?: string;
     userID?: string;
+    image?: string;
+    imageKey?: string;
 };
 export declare type MyProfileImageUpdateFormValidationValues = {
-    imageKey?: ValidationFunction<string>;
-    image?: ValidationFunction<string>;
     userID?: ValidationFunction<string>;
+    image?: ValidationFunction<string>;
+    imageKey?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type MyProfileImageUpdateFormOverridesProps = {
     MyProfileImageUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    SectionalElement1?: PrimitiveOverrideProps<HeadingProps>;
-    imageKey?: PrimitiveOverrideProps<StorageManagerProps>;
-    image?: PrimitiveOverrideProps<TextFieldProps>;
+    SectionalElement0?: PrimitiveOverrideProps<HeadingProps>;
     userID?: PrimitiveOverrideProps<TextFieldProps>;
+    image?: PrimitiveOverrideProps<TextFieldProps>;
+    imageKey?: PrimitiveOverrideProps<StorageManagerProps>;
 } & EscapeHatchProps;
 export declare type MyProfileImageUpdateFormProps = React.PropsWithChildren<{
     overrides?: MyProfileImageUpdateFormOverridesProps | undefined | null;
 } & {
-    clearOnSuccess?: boolean;
+    id?: string;
+    profileImage?: ProfileImage;
     onSubmit?: (fields: MyProfileImageUpdateFormInputValues) => MyProfileImageUpdateFormInputValues;
     onSuccess?: (fields: MyProfileImageUpdateFormInputValues) => void;
     onError?: (fields: MyProfileImageUpdateFormInputValues, errorMessage: string) => void;

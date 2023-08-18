@@ -1,5 +1,5 @@
 import React from 'react'
-import {headerStyle, homeStyle} from "../styles/styles";
+import {headerStyle} from "../styles/styles";
 import {HeroLayout1} from "../ui-components";
 import {useStorageGetPublic} from "../services/imageService";
 

@@ -25,7 +25,7 @@ export default function NavigationBars() {
     return (
         <div>
             <MyNavBarHeader
-                imageKey = {useAvatarImage(route === 'authenticated')}
+                imageKey={useAvatarImage(route === 'authenticated')}
 
                 overrides={{
                     "MyNavBarHeader": navBarStyle,
@@ -36,7 +36,7 @@ export default function NavigationBars() {
             <MyNavBarSide
                 isVisible={isVisible}
                 style={{zIndex: "2"}}
-                imageKey = {useAvatarImage(route === 'authenticated')}
+                imageKey={useAvatarImage(route === 'authenticated')}
                 overrides={{
                     "MyNavBarSide": sideBarStyle,
                     "Button": {onClick: () => closeSideBar()},

@@ -10,7 +10,7 @@ import {UploadProfileImage} from "../components/UploadProfileImage";
 
 export default function Profile() {
     const [name, setName] = useState("");
-    const [imageRecord, setImageRecord] = useState("")
+    const [imageRecord, setImageRecord] = useState(undefined)
     const [isVisible, setIsVisible] = useState(false)
 
     const user = useAuthUser();
@@ -24,9 +24,11 @@ export default function Profile() {
             })
         }
     })
+
     function showForm() {
         setIsVisible(true)
     }
+
     const profileOverrides = {
         "TextField38475054": {
             onChange: (event) => {
@@ -52,21 +54,19 @@ export default function Profile() {
             <div>
                 <h1 style={headerStyle}>My Profile</h1>
                 <div>
-                    <MyEditProfile
-                        overrides={profileOverrides}
-                        width={formStyle.width}
-                        maxWidth={formStyle.maxWidth}
-                        imageUploadAction={showForm}
-                    />
                     <UploadProfileImage
-                        isVisible = {isVisible}
+                        isVisible={isVisible}
                         imageRecord={imageRecord}
                         userID={user.attributes.sub}
-                        />
-
+                    />
+                    <MyEditProfile
+                        overrides={profileOverrides}
+                        style={formStyle}
+                        imageUploadAction={showForm}
+                    />
                     <MyLogout
-                        width={formStyle.width}
-                        maxWidth={formStyle.maxWidth}/>
+                        style={formStyle}
+                    />
                 </div>
             </div>
         );

@@ -5,9 +5,10 @@
  **************************************************************************/
 
 import * as React from "react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { MyCommentCardProps } from "./MyCommentCard";
-import { CollectionProps } from "@aws-amplify/ui-react";
+import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
+import {MyCommentCardProps} from "./MyCommentCard";
+import {CollectionProps} from "@aws-amplify/ui-react";
+
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PostCollectionOverridesProps = {
     PostCollection?: PrimitiveOverrideProps<CollectionProps>;

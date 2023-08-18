@@ -5,9 +5,10 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { Post } from "../models";
+import {GridProps, TextAreaFieldProps, TextFieldProps} from "@aws-amplify/ui-react";
+import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
+import {Post} from "../models";
+
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;

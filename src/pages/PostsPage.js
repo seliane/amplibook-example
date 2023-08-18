@@ -6,9 +6,7 @@ import PostCollectionOverwrite from "../components/PostCollectionOverwrite";
 import {addUser, useAuthUser} from "../services/userService";
 
 export const cardOverwrite = (item, index) => ({
-    width: cardStyle.width,
-    maxWidth: cardStyle.maxWidth,
-    minWidth: cardStyle.minWidth,
+    style: {cardStyle},
     overrides: {
         "Lorem ipsum": {
             display: "inline-block",
@@ -23,19 +21,11 @@ export const cardOverwrite = (item, index) => ({
 
 
 export default function Posts() {
-    const { route } = useAuthenticator((context) => [context.route]);
+    const {route} = useAuthenticator((context) => [context.route]);
     const user = useAuthUser();
 
 // TODO: Fix this
     const userEntry = route === 'authenticated' ? addUser() : undefined
-
-    const postCreateOverwrite = {
-        "userID": {
-            value: user ? user.attributes.sub : '',
-            isDisabled: "True",
-            display: "none"
-        }
-    }
 
     if (route !== 'authenticated' || user === undefined) {
         return (

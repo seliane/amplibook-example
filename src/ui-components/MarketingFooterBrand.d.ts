@@ -5,9 +5,10 @@
  **************************************************************************/
 
 import * as React from "react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { ButtonProps, FlexProps, TextFieldProps, TextProps } from "@aws-amplify/ui-react";
-import { LogoWithTextProps } from "./LogoWithText";
+import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
+import {ButtonProps, FlexProps, TextFieldProps, TextProps} from "@aws-amplify/ui-react";
+import {LogoWithTextProps} from "./LogoWithText";
+
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type MarketingFooterBrandOverridesProps = {
     MarketingFooterBrand?: PrimitiveOverrideProps<FlexProps>;

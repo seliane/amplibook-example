@@ -23,19 +23,25 @@ export const cardStyle = {
     minWidth: "350px",
 }
 
-
 export const formStyle = {
-    width : {
+    width: {
         base: "80vw",
         medium: "60vw",
         large: "50vw",
     },
-    maxWidth : "570px",
+    maxWidth: "570px",
 }
 export const collectionStyle = {
-    templateColumns : {base: '1fr', large: '1fr 1fr', xxl: '1fr 1fr 1fr'},
+    templateColumns: {base: '1fr', large: '1fr 1fr', xxl: '1fr 1fr 1fr'},
 }
 
+export const formOverlayContainerStyle = {
+    zIndex: "2",
+    width: "100%",
+    height: "100vw",
+    backgroundColor: "white",
+    position: "absolute"
+}
 
 export const sideBarStyle = {
     position: "fixed",
