@@ -6,6 +6,10 @@ export const homeStyle = {
 export const headerStyle = {
     padding: "24px",
 }
+export const disable = {
+    isReadOnly: true,
+    isDisabled: true
+}
 
 export const userTextStyle = {
     wordBreak: "break-word",

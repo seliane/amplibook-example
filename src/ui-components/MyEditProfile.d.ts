@@ -7,6 +7,7 @@
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { ButtonProps, FlexProps, ImageProps, TextFieldProps, TextProps } from "@aws-amplify/ui-react";
+import { SyntheticEvent } from "react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type MyEditProfileOverridesProps = {
     MyEditProfile?: PrimitiveOverrideProps<FlexProps>;
@@ -15,6 +16,7 @@ export declare type MyEditProfileOverridesProps = {
     "Edit Profile38475049"?: PrimitiveOverrideProps<TextProps>;
     Profile?: PrimitiveOverrideProps<FlexProps>;
     image?: PrimitiveOverrideProps<ImageProps>;
+    "Upload New Image"?: PrimitiveOverrideProps<TextProps>;
     Forms?: PrimitiveOverrideProps<FlexProps>;
     TextField38475054?: PrimitiveOverrideProps<TextFieldProps>;
     TextField38475056?: PrimitiveOverrideProps<TextFieldProps>;
@@ -24,6 +26,7 @@ export declare type MyEditProfileOverridesProps = {
 } & EscapeHatchProps;
 export declare type MyEditProfileProps = React.PropsWithChildren<Partial<FlexProps> & {
     imageKey?: String;
+    imageUploadAction?: (event: SyntheticEvent) => void;
 } & {
     overrides?: MyEditProfileOverridesProps | undefined | null;
 }>;

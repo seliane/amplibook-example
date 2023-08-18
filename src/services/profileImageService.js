@@ -1,78 +1,51 @@
-import {API, DataStore, graphqlOperation} from "aws-amplify";
+import {Auth, DataStore} from "aws-amplify";
 import {ProfileImage} from "../models";
+import {useEffect, useState} from "react";
+import {getImagePublic} from "./imageService";
 
-async function createProfileImage(imageKey, userID) {
-    /*
-    await API.graphql(graphqlOperation(createProfileImages, {
-        input: {
-            user: userID,
-            image: imageKey
+
+export const defaultAvatarIconKey = 'female-user-icon.png'
+
+export const useAvatarImage = (isLoggedIn) => {
+    const [avatar, setAvatar] = useState(undefined);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            Auth.currentAuthenticatedUser()
+                .then(async (user) => {
+                    if (user && user !== undefined) {
+                        const imageKey = await getProfileImageKey(user.attributes.sub)
+                        return imageKey
+                    }
+                })
+                .then(async (imageKey) => {
+                    if (imageKey && imageKey !== undefined) {
+                        return await getImagePublic(imageKey)
+                    } else {
+                        return await getImagePublic(defaultAvatarIconKey)
+                    }
+                })
+                .then((data) => {
+                    setAvatar(data)
+                })
+                .catch((err) => console.log(err))
+
+        } else {
+            getImagePublic(defaultAvatarIconKey)
+                .then((data) => {
+                    setAvatar(data)
+                })
+                .catch((err) => console.log(err))
         }
-    }))*/
-    await DataStore.save(
-        new ProfileImage({
-            "userID": userID,
-            "image": imageKey
-        })
-    );
+    })
+    return avatar;
 }
 
-async function updateExistingProfileImage(newImageKey, currentImage) {
 
-        const original = await DataStore.query(ProfileImage, currentImage.id);
-
-        await DataStore.save(
-            ProfileImage.copyOf(original, updated => {
-                updated.image = newImageKey
-            })
-        );
-
-/*
-    await API.graphql(graphqlOperation(updateProfileImages, {
-        input: {
-            id: currentImage.id,
-            user: currentImage.user,
-            image: newImageKey,
-            createdAt: currentImage.createdAt,
-            updatedAt: currentImage.updatedAt,
-        }
-    }))
-
- */
-}
-
-async function tryGetCurrentProfileImage(userID) {
-    await DataStore.query(ProfileImage, el =>
+export async function tryGetCurrentProfileImage(userID) {
+    return await DataStore.query(ProfileImage, el =>
         el.userID.eq(userID)
     );
-    /*
-    const variables = {
-        filter: {
-            user: {
-                eq: userID
-            }
-        }
-    };
-    const data = await API.graphql({query: listProfileImages, variables: variables})
-    return data.data.listProfileImages.items
-
-     */
-}
-
-export async function updateProfileImage(imageKey, userID) {
-    try {
-        if (!userID || !imageKey) throw "userID " + userID + "or imageKey " + imageKey + " is not defined"
-        const profileImages = await tryGetCurrentProfileImage(userID)
-        if (profileImages && profileImages.length !== 0) {
-            const currentProfileImage = profileImages[0]
-            await updateExistingProfileImage(imageKey, currentProfileImage)
-        } else {
-            await createProfileImage(imageKey, userID)
-        }
-        return imageKey
-    } catch (err) {
-        console.log('error creating profile image entry:', err)
-    }
 }
 
 export async function getProfileImageKey(userID) {

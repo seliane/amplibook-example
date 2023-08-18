@@ -192,7 +192,7 @@ export default function HeroLayout1(props) {
               position="relative"
               padding="0px 0px 0px 0px"
               whiteSpace="pre-wrap"
-              children="Build full-stack web and mobile apps in hours. Easy to start, easy to scale"
+              children="Welcome to Amplibook"
               {...getOverrideProps(overrides, "Heading")}
             ></Text>
             <Text

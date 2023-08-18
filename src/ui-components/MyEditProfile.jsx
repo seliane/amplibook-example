@@ -13,7 +13,7 @@ import {
 } from "@aws-amplify/ui-react/internal";
 import { Button, Flex, Image, Text, TextField } from "@aws-amplify/ui-react";
 export default function MyEditProfile(props) {
-  const { imageKey, overrides, ...rest } = props;
+  const { imageKey, imageUploadAction, overrides, ...rest } = props;
   const authAttributes = useAuth().user?.attributes ?? {};
   const buttonThreeEightFourSevenFiveZeroFiveSevenOnClick = useNavigateAction({
     type: "reload",
@@ -108,6 +108,29 @@ export default function MyEditProfile(props) {
             src={imageKey}
             {...getOverrideProps(overrides, "image")}
           ></Image>
+          <Text
+            fontFamily="Inter"
+            fontSize="16px"
+            fontWeight="400"
+            color="rgba(13,26,38,1)"
+            lineHeight="22px"
+            textAlign="left"
+            display="block"
+            direction="column"
+            justifyContent="unset"
+            textDecoration="underline"
+            width="unset"
+            height="unset"
+            gap="unset"
+            alignItems="unset"
+            shrink="0"
+            position="relative"
+            padding="0px 0px 0px 0px"
+            whiteSpace="pre-wrap"
+            children="Upload New Image"
+            onClick={imageUploadAction}
+            {...getOverrideProps(overrides, "Upload New Image")}
+          ></Text>
         </Flex>
         <Flex
           gap="16px"

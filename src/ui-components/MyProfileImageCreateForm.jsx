@@ -12,7 +12,7 @@ import { Field, getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { ProfileImage } from "../models";
 import { fetchByPath, processFile, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function MyProfileImageUpdateForm(props) {
+export default function MyProfileImageCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -119,17 +119,17 @@ export default function MyProfileImageUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "MyProfileImageUpdateForm")}
+      {...getOverrideProps(overrides, "MyProfileImageCreateForm")}
       {...rest}
     >
       <Heading
-        children="Edit profile picture"
-        {...getOverrideProps(overrides, "SectionalElement1")}
+        children="Add a profile picture"
+        {...getOverrideProps(overrides, "SectionalElement0")}
       ></Heading>
       <Field
         errorMessage={errors.imageKey?.errorMessage}
         hasError={errors.imageKey?.hasError}
-        label={"Upload  a new image"}
+        label={"Upload new image"}
       >
         <StorageManager
           onUploadSuccess={({ key }) => {

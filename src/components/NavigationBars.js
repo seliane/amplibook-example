@@ -3,7 +3,7 @@ import {MyNavBarHeader, MyNavBarSide} from "../ui-components";
 import {useAuthenticator, useBreakpointValue} from "@aws-amplify/ui-react";
 
 import {navBarStyle, sideBarStyle} from "../styles/styles";
-import {useAuthUser, useAvatarImage} from "../services/userService";
+import {useAvatarImage} from "../services/profileImageService";
 
 
 export default function NavigationBars() {
@@ -21,9 +21,6 @@ export default function NavigationBars() {
         display: useBreakpointValue({base: 'none', small: 'flex'})
     }
     const {route} = useAuthenticator((context) => [context.route]);
-
-    const user = useAuthUser()
-
 
     return (
         <div>

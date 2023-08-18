@@ -13,33 +13,33 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type MyProfileImageUpdateFormInputValues = {
+export declare type MyProfileImageCreateFormInputValues = {
     imageKey?: string;
     image?: string;
     userID?: string;
 };
-export declare type MyProfileImageUpdateFormValidationValues = {
+export declare type MyProfileImageCreateFormValidationValues = {
     imageKey?: ValidationFunction<string>;
     image?: ValidationFunction<string>;
     userID?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type MyProfileImageUpdateFormOverridesProps = {
-    MyProfileImageUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    SectionalElement1?: PrimitiveOverrideProps<HeadingProps>;
+export declare type MyProfileImageCreateFormOverridesProps = {
+    MyProfileImageCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    SectionalElement0?: PrimitiveOverrideProps<HeadingProps>;
     imageKey?: PrimitiveOverrideProps<StorageManagerProps>;
     image?: PrimitiveOverrideProps<TextFieldProps>;
     userID?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type MyProfileImageUpdateFormProps = React.PropsWithChildren<{
-    overrides?: MyProfileImageUpdateFormOverridesProps | undefined | null;
+export declare type MyProfileImageCreateFormProps = React.PropsWithChildren<{
+    overrides?: MyProfileImageCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: MyProfileImageUpdateFormInputValues) => MyProfileImageUpdateFormInputValues;
-    onSuccess?: (fields: MyProfileImageUpdateFormInputValues) => void;
-    onError?: (fields: MyProfileImageUpdateFormInputValues, errorMessage: string) => void;
+    onSubmit?: (fields: MyProfileImageCreateFormInputValues) => MyProfileImageCreateFormInputValues;
+    onSuccess?: (fields: MyProfileImageCreateFormInputValues) => void;
+    onError?: (fields: MyProfileImageCreateFormInputValues, errorMessage: string) => void;
     onCancel?: () => void;
-    onChange?: (fields: MyProfileImageUpdateFormInputValues) => MyProfileImageUpdateFormInputValues;
-    onValidate?: MyProfileImageUpdateFormValidationValues;
+    onChange?: (fields: MyProfileImageCreateFormInputValues) => MyProfileImageCreateFormInputValues;
+    onValidate?: MyProfileImageCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function MyProfileImageUpdateForm(props: MyProfileImageUpdateFormProps): React.ReactElement;
+export default function MyProfileImageCreateForm(props: MyProfileImageCreateFormProps): React.ReactElement;
