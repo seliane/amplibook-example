@@ -5,10 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
-import {MyIconProps} from "./MyIcon";
-import {FlexProps, ImageProps, TextProps} from "@aws-amplify/ui-react";
-
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { MyIconProps } from "./MyIcon";
+import { FlexProps, ImageProps, TextProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CommentCardOverridesProps = {
     CommentCard?: PrimitiveOverrideProps<FlexProps>;

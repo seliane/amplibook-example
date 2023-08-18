@@ -6,15 +6,16 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { ButtonProps, FlexProps, TextProps } from "@aws-amplify/ui-react";
+import { FlexProps, IconProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type DataRowOverridesProps = {
-    DataRow?: PrimitiveOverrideProps<FlexProps>;
+export declare type MyCreateNewPostOverridesProps = {
+    MyCreateNewPost?: PrimitiveOverrideProps<FlexProps>;
+    Button?: PrimitiveOverrideProps<FlexProps>;
+    "Button Icon"?: PrimitiveOverrideProps<ViewProps>;
+    Vector?: PrimitiveOverrideProps<IconProps>;
     label?: PrimitiveOverrideProps<TextProps>;
-    value?: PrimitiveOverrideProps<TextProps>;
-    Button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
-export declare type DataRowProps = React.PropsWithChildren<Partial<FlexProps> & {
-    overrides?: DataRowOverridesProps | undefined | null;
+export declare type MyCreateNewPostProps = React.PropsWithChildren<Partial<FlexProps> & {
+    overrides?: MyCreateNewPostOverridesProps | undefined | null;
 }>;
-export default function DataRow(props: DataRowProps): React.ReactElement;
+export default function MyCreateNewPost(props: MyCreateNewPostProps): React.ReactElement;

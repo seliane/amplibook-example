@@ -5,10 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import {GridProps, HeadingProps, TextFieldProps} from "@aws-amplify/ui-react";
-import {StorageManagerProps} from "@aws-amplify/ui-react-storage";
-import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
-
+import { GridProps, HeadingProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { StorageManagerProps } from "@aws-amplify/ui-react-storage";
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;

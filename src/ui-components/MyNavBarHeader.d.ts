@@ -5,11 +5,10 @@
  **************************************************************************/
 
 import * as React from "react";
-import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
-import {FlexProps, IconProps, ImageProps, TextProps} from "@aws-amplify/ui-react";
-import {OSTLogoWithTextProps} from "./OSTLogoWithText";
-import {MyIconProps} from "./MyIcon";
-
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { FlexProps, IconProps, ImageProps, TextProps } from "@aws-amplify/ui-react";
+import { OSTLogoWithTextProps } from "./OSTLogoWithText";
+import { MyIconProps } from "./MyIcon";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type MyNavBarHeaderOverridesProps = {
     MyNavBarHeader?: PrimitiveOverrideProps<FlexProps>;

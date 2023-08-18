@@ -5,10 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import {SyntheticEvent} from "react";
-import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
-import {ButtonProps, FlexProps, ImageProps, TextFieldProps, TextProps} from "@aws-amplify/ui-react";
-
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { ButtonProps, FlexProps, ImageProps, TextFieldProps, TextProps } from "@aws-amplify/ui-react";
+import { SyntheticEvent } from "react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type MyEditProfileOverridesProps = {
     MyEditProfile?: PrimitiveOverrideProps<FlexProps>;

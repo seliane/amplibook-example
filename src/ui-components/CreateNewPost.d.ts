@@ -5,15 +5,16 @@
  **************************************************************************/
 
 import * as React from "react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { ButtonProps, DividerProps, FlexProps } from "@aws-amplify/ui-react";
+import {EscapeHatchProps} from "@aws-amplify/ui-react/internal";
+import {ButtonProps, DividerProps, FlexProps} from "@aws-amplify/ui-react";
+
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type MyLogoutOverridesProps = {
-    MyLogout?: PrimitiveOverrideProps<FlexProps>;
+export declare type CreateNewPostOverridesProps = {
+    CreateNewPost?: PrimitiveOverrideProps<FlexProps>;
     Divider?: PrimitiveOverrideProps<DividerProps>;
     Button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
-export declare type MyLogoutProps = React.PropsWithChildren<Partial<FlexProps> & {
-    overrides?: MyLogoutOverridesProps | undefined | null;
+export declare type CreateNewPostProps = React.PropsWithChildren<Partial<FlexProps> & {
+    overrides?: CreateNewPostOverridesProps | undefined | null;
 }>;
-export default function MyLogout(props: MyLogoutProps): React.ReactElement;
+export default function CreateNewPost(props: CreateNewPostProps): React.ReactElement;

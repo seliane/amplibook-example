@@ -6,44 +6,46 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {Post} from "../models";
-import {getOverrideProps, useDataStoreBinding,} from "@aws-amplify/ui-react/internal";
+import { Post } from "../models";
+import {
+  getOverrideProps,
+  useDataStoreBinding,
+} from "@aws-amplify/ui-react/internal";
 import MyCommentCard from "./MyCommentCard";
-import {Collection} from "@aws-amplify/ui-react";
-
+import { Collection } from "@aws-amplify/ui-react";
 export default function MyPostCollection(props) {
-    const {items: itemsProp, overrideItems, overrides, ...rest} = props;
-    const [items, setItems] = React.useState(undefined);
-    const itemsDataStore = useDataStoreBinding({
-        type: "collection",
-        model: Post,
-    }).items;
-    React.useEffect(() => {
-        if (itemsProp !== undefined) {
-            setItems(itemsProp);
-            return;
-        }
-        setItems(itemsDataStore);
-    }, [itemsProp, itemsDataStore]);
-    return (
-        <Collection
-            type="grid"
-            searchPlaceholder="Search..."
-            templateColumns="1fr 1fr"
-            autoFlow="row"
-            alignItems="stretch"
-            justifyContent="stretch"
-            items={items || []}
-            {...getOverrideProps(overrides, "MyPostCollection")}
-            {...rest}
-        >
-            {(item, index) => (
-                <MyCommentCard
-                    post={item}
-                    key={item.id}
-                    {...(overrideItems && overrideItems({item, index}))}
-                ></MyCommentCard>
-            )}
-        </Collection>
-    );
+  const { items: itemsProp, overrideItems, overrides, ...rest } = props;
+  const [items, setItems] = React.useState(undefined);
+  const itemsDataStore = useDataStoreBinding({
+    type: "collection",
+    model: Post,
+  }).items;
+  React.useEffect(() => {
+    if (itemsProp !== undefined) {
+      setItems(itemsProp);
+      return;
+    }
+    setItems(itemsDataStore);
+  }, [itemsProp, itemsDataStore]);
+  return (
+    <Collection
+      type="grid"
+      searchPlaceholder="Search..."
+      templateColumns="1fr 1fr"
+      autoFlow="row"
+      alignItems="stretch"
+      justifyContent="stretch"
+      items={items || []}
+      {...getOverrideProps(overrides, "MyPostCollection")}
+      {...rest}
+    >
+      {(item, index) => (
+        <MyCommentCard
+          post={item}
+          key={item.id}
+          {...(overrideItems && overrideItems({ item, index }))}
+        ></MyCommentCard>
+      )}
+    </Collection>
+  );
 }
