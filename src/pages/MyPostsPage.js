@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useAuthenticator} from "@aws-amplify/ui-react";
-import {collectionStyle, formStyle, headerStyle} from "../styles/styles"
+import {collectionStyle, formStyle} from "../styles/styles"
 import Loading from "../components/Loading";
 import MyPostCollectionOverwrite from "../components/MyPostCollectionOverwrite";
 import {MyCreateNewPost} from "../ui-components";
@@ -30,7 +30,7 @@ export default function MyPosts() {
     } else {
         return (
             <div>
-                <h1 style={headerStyle}>My Posts</h1>
+                <h1>My Posts</h1>
                 <CreatePostForm
                     isVisible={isVisible}
                     userID={user.attributes.sub}

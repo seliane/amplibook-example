@@ -10,35 +10,16 @@ import Posts from "./pages/PostsPage";
 import {Login} from "./components/Login";
 import About from "./pages/AboutPage";
 import NavigationBars from "./components/NavigationBars";
-import {homeStyle} from "./styles/styles";
-
-// const models = await DataStore.query(Post);
+import {contentStyle, pageStyle} from "./styles/styles";
 
 function App() {
-    /*
-    const [post, setPost] = useState(undefined);
-    useEffect(() => {
-      DataStore.query(Post)
-          .then((data) => {
-                setPost(data[0])
-              }
-          ).catch((err) => console.error(err))
-      Storage.get("animal-friends-which-make-selfies-wiht-a-cellphone.png", {
-        level: "public"
-      }).then((image) => {
-        console.log(image)
-      })
-    });
-    const [imgage, setImage] = useState(undefined);
 
-    console.log(models);
-     */
     return (
-        <div style={homeStyle}>
+        <div style={pageStyle}>
             <NavigationBars/>
             <div>
                 <Router>
-                    <div>
+                    <div style={contentStyle}>
                         {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
                         <Routes>

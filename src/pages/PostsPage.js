@@ -1,6 +1,6 @@
 import React from 'react'
 import {useAuthenticator} from "@aws-amplify/ui-react";
-import {cardStyle, collectionStyle, headerStyle, homeStyle, userTextStyle} from "../styles/styles";
+import {cardStyle, collectionStyle, userTextStyle} from "../styles/styles";
 import Loading from "../components/Loading";
 import PostCollectionOverwrite from "../components/PostCollectionOverwrite";
 import {addUser, useAuthUser} from "../services/userService";
@@ -16,6 +16,13 @@ export const cardOverwrite = (item, index) => ({
             display: "inline-block",
             style: userTextStyle,
         },
+        "Share38474991": {
+            gap: {
+                base: "2em",
+                small: "5em"
+
+            }
+        }
     }
 })
 
@@ -35,8 +42,8 @@ export default function Posts() {
         )
     } else {
         return (
-            <div style={homeStyle}>
-                <h1 style={headerStyle}>Posts</h1>
+            <div>
+                <h1>Posts</h1>
                 <PostCollectionOverwrite
                     templateColumns={collectionStyle.templateColumns}
                     overrideItems={cardOverwrite}

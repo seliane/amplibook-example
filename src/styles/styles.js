@@ -1,11 +1,13 @@
-export const homeStyle = {
+export const pageStyle = {
     zIndex: "1",
     width: "100vw",
 }
 
-export const headerStyle = {
-    padding: "24px",
+// TODO: change padding for base/small to 0
+export const contentStyle = {
+    padding: "3em"
 }
+
 export const disable = {
     isReadOnly: true,
     isDisabled: true
@@ -17,8 +19,13 @@ export const userTextStyle = {
     wordWrap: "break-word",
     hyphens: "auto",
 }
+
 export const cardStyle = {
-    width: {base: "80vw", medium: "60vw", large: "50vw"},
+    width: {
+        base: "80vw",
+        medium: "60vw",
+        large: "50vw"
+    },
     maxWidth: "500px",
     minWidth: "350px",
 }
@@ -31,8 +38,13 @@ export const formStyle = {
     },
     maxWidth: "570px",
 }
+
 export const collectionStyle = {
-    templateColumns: {base: '1fr', large: '1fr 1fr', xxl: '1fr 1fr 1fr'},
+    templateColumns: {
+        base: '1fr',
+        large: '1fr 1fr',
+        xxl: '1fr 1fr 1fr'
+    },
 }
 
 export const formOverlayContainerStyle = {
@@ -46,13 +58,12 @@ export const formOverlayContainerStyle = {
 export const sideBarStyle = {
     position: "fixed",
     marginTop: "1em",
-    paddingLeft: "0em",
-    paddingTop: "0em",
+    padding: "0em",
     height: "100%",
+    width: "100%",
     overflowX: "hidden"
 }
 
 export const navBarStyle = {
     width: "100%",
 }
-

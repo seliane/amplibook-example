@@ -21,7 +21,7 @@ export declare type HeroLayout1OverridesProps = {
     image?: PrimitiveOverrideProps<ImageProps>;
 } & EscapeHatchProps;
 export declare type HeroLayout1Props = React.PropsWithChildren<Partial<FlexProps> & {
-    breakpoint?: "large" | "lmedium" | "medium";
+    breakpoint?: "large" | "medium";
     mode?: "Dark" | "Light";
 } & {
     overrides?: HeroLayout1OverridesProps | undefined | null;

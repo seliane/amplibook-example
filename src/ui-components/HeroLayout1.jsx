@@ -55,7 +55,7 @@ export default function HeroLayout1(props) {
           height: "918px",
         },
       },
-      variantValues: { mode: "Light", breakpoint: "lmedium" },
+      variantValues: { mode: "Light", breakpoint: "medium" },
     },
     {
       overrides: {
@@ -79,6 +79,7 @@ export default function HeroLayout1(props) {
   ];
   const breakpointHook = useBreakpointValue({
     base: "medium",
+    medium: "medium",
     medium: "medium",
     large: "large",
   });

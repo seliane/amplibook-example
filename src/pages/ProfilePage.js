@@ -2,7 +2,7 @@ import {useAuthenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import Loading from "../components/Loading";
 import {MyEditProfile, MyLogout} from "../ui-components";
-import {formStyle, headerStyle} from "../styles/styles"
+import {formStyle} from "../styles/styles"
 import {tryGetCurrentProfileImage, useAvatarImage,} from "../services/profileImageService";
 import {updateUserName, useAuthUser} from "../services/userService";
 import {useEffect, useState} from "react";
@@ -36,7 +36,9 @@ export default function Profile() {
             },
         },
         "Button3848594": {
-            onClick: () => updateUserName(name),
+            onClick: async () => {
+                updateUserName(name).then(() => window.location.reload())
+            },
         },
         "image": {
             src: useAvatarImage(true),
@@ -52,7 +54,7 @@ export default function Profile() {
     } else {
         return (
             <div>
-                <h1 style={headerStyle}>My Profile</h1>
+                <h1>My Profile</h1>
                 <div>
                     <UploadProfileImage
                         isVisible={isVisible}
@@ -61,11 +63,13 @@ export default function Profile() {
                     />
                     <MyEditProfile
                         overrides={profileOverrides}
-                        style={formStyle}
+                        width={formStyle.width}
+                        maxWidth={formStyle.maxWidth}
                         imageUploadAction={showForm}
                     />
                     <MyLogout
-                        style={formStyle}
+                        width={formStyle.width}
+                        maxWidth={formStyle.maxWidth}
                     />
                 </div>
             </div>

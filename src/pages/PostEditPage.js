@@ -2,7 +2,7 @@ import React from 'react'
 import {PostUpdateForm} from '../ui-components'
 import {useNavigate, useParams} from "react-router-dom";
 import {useAuthenticator} from "@aws-amplify/ui-react";
-import {disable, formStyle, headerStyle} from "../styles/styles";
+import {disable, formStyle} from "../styles/styles";
 import Loading from "../components/Loading";
 
 export default function PostEditPage() {
@@ -19,7 +19,7 @@ export default function PostEditPage() {
     } else {
         return (
             <div>
-                <h1 style={headerStyle}>Edit Post</h1>
+                <h1>Edit Post</h1>
                 <PostUpdateForm
                     id={postId}
                     onSuccess={() => navigate(-1)}

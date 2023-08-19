@@ -34,7 +34,6 @@ export { default as MyNavBarSide } from "./MyNavBarSide";
 export { default as MyPostCollection } from "./MyPostCollection";
 export { default as MyProfileImageCreateForm } from "./MyProfileImageCreateForm";
 export { default as MyProfileImageUpdateForm } from "./MyProfileImageUpdateForm";
-export { default as MyProfileImageUpdateForm2 } from "./MyProfileImageUpdateForm2";
 export { default as NavBarHeader } from "./NavBarHeader";
 export { default as NavBarHeader2 } from "./NavBarHeader2";
 export { default as NavBarSide } from "./NavBarSide";

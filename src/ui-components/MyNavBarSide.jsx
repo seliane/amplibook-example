@@ -108,7 +108,7 @@ export default function MyNavBarSide(props) {
               {...getOverrideProps(overrides, "Frame 437")}
             >
               <OSTLogoWithText
-                display="none"
+                display="None"
                 gap="10px"
                 direction="column"
                 width="39.34px"
