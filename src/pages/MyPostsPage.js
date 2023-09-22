@@ -4,16 +4,13 @@ import {collectionStyle, formStyle} from "../styles/styles"
 import Loading from "../components/Loading";
 import MyPostCollectionOverwrite from "../components/MyPostCollectionOverwrite";
 import {MyCreateNewPost} from "../ui-components";
-import {addUser, useAuthUser} from "../services/userService";
+import {useAuthUser} from "../services/userService";
 import {cardOverwrite} from "./PostsPage";
 import {CreatePostForm} from "../components/CreatePostForm";
 
 export default function MyPosts() {
     const {route} = useAuthenticator((context) => [context.route]);
     const user = useAuthUser();
-
-    // TODO: Fix this
-    const userEntry = route === 'authenticated' ? addUser() : undefined
 
     const [isVisible, setIsVisible] = useState(false)
 

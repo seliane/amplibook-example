@@ -32,7 +32,11 @@ export const useAuthUser = () => {
             .then((user) => {
                     setUser(user)
                 }
-            ).catch((err) => console.error(err))
+            )
+            .then(async () => {
+                await addUser()
+            })
+            .catch((err) => console.error(err))
     }, []);
     return user;
 }
@@ -52,7 +56,6 @@ export async function addUser() {
                 })
             );
         }
-        return userList[0]
     } catch (err) {
         console.error(err)
     }
